@@ -43,3 +43,49 @@ class FrenchDeckTest:
         sorted_card = sorted(deck, key=self.spades_high, reverse=reverse)[0]
 
         assert sorted_card == card
+
+    def test_length_of_the_deck(self):
+        deck = FrenchDeck()
+
+        assert len(deck) == 52
+
+    @pytest.mark.parametrize(
+        "suit",
+        [
+            "spades",
+            "hearts",
+            "diamonds",
+            "clubs",
+        ],
+    )
+    def test_filter_dictionary_by_suit(self, suit):
+        deck = FrenchDeck()
+
+        filtered_values = filter(lambda item: item.suit == suit, deck)
+
+        assert len(list(filtered_values)) == 13
+
+    @pytest.mark.parametrize(
+        "rank",
+        [
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "J",
+            "K",
+            "Q",
+            "A",
+        ],
+    )
+    def test_filter_dictionary_by_rank(self, rank):
+        deck = FrenchDeck()
+
+        filtered_values = filter(lambda item: item.rank == rank, deck)
+
+        assert len(list(filtered_values)) == 4

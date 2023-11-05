@@ -1,6 +1,10 @@
-import collections
+class Card:
+    def __init__(self, rank: str, suit: str):
+        self.rank = rank
+        self.suit = suit
 
-Card = collections.namedtuple('Card', ['rank', 'suit'])
+    def __eq__(self, other: "Card"):
+        return self.rank == other.rank and self.suit == other.suit
 
 
 class FrenchDeck:

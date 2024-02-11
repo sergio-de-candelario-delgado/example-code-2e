@@ -1,28 +1,50 @@
+import math
+
+from faker import Faker
+
 from inheritance.shapes import Circle, Rectangle, Square
 
 
 class TestDecoratorsAsFunctions:
 
     def test_circle(self):
-        circle = Circle(10)
+        faker = Faker()
+        radius = faker.pyfloat()
 
-        assert 314.1592653589793 == circle.get_area()
-        assert 62.83185307179586 == circle.get_perimeter()
-        assert '{"radius": 10}' == circle.to_json()
+        circle = Circle(radius)
+
+        expected_area = math.pi * pow(radius, 2)
+        expected_perimeter = math.pi * radius * 2
+
+        assert expected_area == circle.get_area()
+        assert expected_perimeter == circle.get_perimeter()
+        assert f'{{"radius": {radius}}}' == circle.to_json()
 
     def test_rectangle(self):
-        rectangle = Rectangle(10, 5)
+        faker = Faker()
+        width = faker.pyint()
+        length = faker.pyint()
 
-        assert 50 == rectangle.get_area()
-        assert 30 == rectangle.get_perimeter()
-        assert '{"width": 5, "length": 10}' == rectangle.to_json()
+        rectangle = Rectangle(length, width)
+
+        expected_area = width * length
+        expected_perimeter = width * 2 + length * 2
+
+        assert expected_area == rectangle.get_area()
+        assert expected_perimeter == rectangle.get_perimeter()
+        assert f'{{"width": {width}, "length": {length}}}' == rectangle.to_json()
 
     def test_square(self):
-        square = Square(10)
+        faker = Faker()
+        side = faker.pyint()
+        square = Square(side)
 
-        assert 100 == square.get_area()
-        assert 40 == square.get_perimeter()
-        assert '{"width": 10, "length": 10}' == square.to_json()
+        expected_area = side * side
+        expected_perimeter = side * 4
+
+        assert expected_area == square.get_area()
+        assert expected_perimeter == square.get_perimeter()
+        assert f'{{"width": {side}, "length": {side}}}' == square.to_json()
 
 
 

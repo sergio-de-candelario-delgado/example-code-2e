@@ -1,9 +1,12 @@
+from __future__ import annotations
+
+
 class Card:
     def __init__(self, rank: str, suit: str):
         self.rank = rank
         self.suit = suit
 
-    def __eq__(self, other: "Card"):
+    def __eq__(self, other: Card):
         return self.rank == other.rank and self.suit == other.suit
 
 

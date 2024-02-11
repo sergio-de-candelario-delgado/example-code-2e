@@ -20,7 +20,7 @@ class Shape(ABC, JSONMixin):
 
 class Circle(Shape):
     def __init__(self, radius: float):
-        self.radius = radius
+        self.radius: float = radius
 
     def get_area(self) -> float:
         return math.pi * pow(self.radius, 2)
@@ -31,8 +31,8 @@ class Circle(Shape):
 
 class Rectangle(Shape):
     def __init__(self, length: int, width: int):
-        self.width = width
-        self.length = length
+        self.width: int = width
+        self.length: int = length
 
     def get_area(self) -> float:
         return self.width * self.length

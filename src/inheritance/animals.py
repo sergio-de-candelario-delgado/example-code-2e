@@ -3,13 +3,13 @@ from abc import ABC
 
 class Animal(ABC):
     def __init__(self, name: str):
-        self.name = name
+        self.name: str = name
 
 
 class Mammal(Animal):
     def __init__(self, name: str):
         super().__init__(name)
-        self.walking = False
+        self.walking: bool = False
 
     @classmethod
     def with_default_name(cls):
@@ -25,7 +25,7 @@ class Mammal(Animal):
 class Flying(Animal):
     def __init__(self, name: str):
         super().__init__(name)
-        self.flying = False
+        self.flying: bool = False
 
     @classmethod
     def with_default_name(cls):
@@ -41,7 +41,7 @@ class Flying(Animal):
 class Swimmer(Animal):
     def __init__(self, name: str):
         super().__init__(name)
-        self.swimming = False
+        self.swimming: bool = False
 
     @classmethod
     def with_default_name(cls):

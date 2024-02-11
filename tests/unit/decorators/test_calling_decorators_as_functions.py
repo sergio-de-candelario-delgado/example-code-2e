@@ -1,5 +1,7 @@
 import pytest
 
+from typing import Callable
+
 from decorators.decorators import change_text_uppercase, change_text_lowercase
 from decorators.functions import say_hello, say_hello_in_uppercase_with_decorators, \
     say_hello_in_lowercase_with_decorators, say_hello_in_uppercase_with_parametrized_decorator, \
@@ -8,35 +10,27 @@ from decorators.functions import say_hello, say_hello_in_uppercase_with_decorato
 
 class TestDecoratorsAsFunctions:
 
-    def test_change_text_to_uppercase_without_decorators(self):
-        text = change_text_uppercase(say_hello)("Sergio")
+    @pytest.mark.parametrize(
+        "function, expected",
+        [
+            (change_text_uppercase, "HELLO SERGIO"),
+            (change_text_lowercase, "hello sergio"),
+        ]
+    )
+    def test_case_conversions_without_decorators(self, function: Callable, expected: str):
+        assert function(say_hello)("Sergio") == expected
 
-        assert "HELLO SERGIO" == text
-
-    def test_change_text_to_lowercase_without_decorators(self):
-        text = change_text_lowercase(say_hello)("Sergio")
-
-        assert "hello sergio" == text
-
-    def test_change_text_to_uppercase_with_decorators(self):
-        text = say_hello_in_uppercase_with_decorators("Sergio")
-
-        assert "HELLO SERGIO" == text
-
-    def test_change_text_to_lowercase_with_decorators(self):
-        text = say_hello_in_lowercase_with_decorators("Sergio")
-
-        assert "hello sergio" == text
-
-    def test_change_text_to_uppercase_with_parametrized_decorator(self):
-        text = say_hello_in_uppercase_with_parametrized_decorator("Sergio")
-
-        assert "HELLO SERGIO" == text
-
-    def test_change_text_to_lowercase_with_parametrized_decorator(self):
-        text = say_hello_in_lowercase_with_parametrized_decorator("Sergio")
-
-        assert "hello sergio" == text
+    @pytest.mark.parametrize(
+        "function, expected",
+        [
+            (say_hello_in_uppercase_with_decorators, "HELLO SERGIO"),
+            (say_hello_in_lowercase_with_decorators, "hello sergio"),
+            (say_hello_in_uppercase_with_parametrized_decorator, "HELLO SERGIO"),
+            (say_hello_in_lowercase_with_parametrized_decorator, "hello sergio"),
+        ]
+    )
+    def test_case_conversions_with_decorators(self, function: Callable, expected: str):
+        assert function("Sergio") == expected
 
     def test_not_change_text_with_invalid_argument_parametrized_decorator(self):
         with pytest.raises(Exception, match="Not valid type invalid"):

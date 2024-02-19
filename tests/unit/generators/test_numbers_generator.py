@@ -13,6 +13,7 @@ class TestNumbersGenerator:
 
     def test_result_is_a_generator(self):
         result = self.sut.generate(10)
+        assert inspect.isgeneratorfunction(self.sut.generate) is True
         assert inspect.isgenerator(result) is True
 
     def test_generate_bit_amount_of_numbers_without_memory_overflow(self):
